@@ -393,3 +393,5 @@ dmypy.json
 .pyre/
 .tex~
 *.*~
+# The junk comes with the qualified name
+univSol*
