@@ -1,0 +1,349 @@
+#+TITLE: Kaggle Fish
+#+SUBTITLE: Univ.ai Project
+#+AUTHOR: Rohit Goswami,\textsc{\scriptsize\ AMIChemE}
+# This should not be altered
+#+OPTIONS: toc:nil title:nil
+# I need the footnotes to be inlined
+#+STARTUP: fninline
+
+#
+# LaTeX Stuff (from eisvogel https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex)
+#
+
+#+LATEX_COMPILER: xelatex
+#+LATEX_CLASS: koma-article
+#+LATEX_CLASS_OPTIONS: [12pt,a4paper,oneside,headinclude]
+
+#+LATEX_HEADER: \PassOptionsToPackage{unicode=true}{hyperref}
+#+LATEX_HEADER: \PassOptionsToPackage{hyphens}{url}
+#+LATEX_HEADER: \PassOptionsToPackage{dvipsnames,svgnames*,x11names*,table}{xcolor}
+
+
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage{amssymb,amsmath}
+#+LATEX_HEADER: \usepackage{physics}
+#+LATEX_HEADER: \usepackage{ifxetex,ifluatex}
+#+LATEX_HEADER: \usepackage{fixltx2e} % provides \textsubscript
+#+LATEX_HEADER: \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{textcomp} % provides euro and other symbols
+#+LATEX_HEADER: \else % if luatex or xelatex
+#+LATEX_HEADER: \usepackage{unicode-math}
+#+LATEX_HEADER: \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+#+LATEX_HEADER: \fi
+#+LATEX_HEADER: % use upquote if available, for straight quotes in verbatim environments
+#+LATEX_HEADER: \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+#+LATEX_HEADER: % use microtype if available
+#+LATEX_HEADER: \IfFileExists{microtype.sty}{%
+#+LATEX_HEADER: \usepackage[]{microtype}
+#+LATEX_HEADER: \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+#+LATEX_HEADER: }{}
+#+LATEX_HEADER: \IfFileExists{parskip.sty}{%
+#+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: }{% else
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \setlength{\parskip}{6pt plus 2pt minus 1pt}
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER:             pdftitle={Kaggle Fish},
+#+LATEX_HEADER:             pdfauthor={Rohit Goswami},
+#+LATEX_HEADER:             pdfborder={0 0 0},
+#+LATEX_HEADER:             breaklinks=true}
+#+LATEX_HEADER: \urlstyle{same}  % don't use monospace font for urls
+
+#+LATEX_HEADER: \usepackage{longtable,booktabs}
+#+LATEX_HEADER: % Fix footnotes in tables (requires footnote package)
+#+LATEX_HEADER: \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+#+LATEX_HEADER: \usepackage{graphicx,grffile}
+#+LATEX_HEADER: \makeatletter
+#+LATEX_HEADER: \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+#+LATEX_HEADER: \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+#+LATEX_HEADER: \makeatother
+#+LATEX_HEADER: % Scale images if necessary, so that they will not overflow the page
+#+LATEX_HEADER: % margins by default, and it is still possible to overwrite the defaults
+#+LATEX_HEADER: % using explicit options in \includegraphics[width, height, ...]{}
+#+LATEX_HEADER: \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+#+LATEX_HEADER: \setlength{\emergencystretch}{3em}  % prevent overfull lines
+#+LATEX_HEADER: \providecommand{\tightlist}{%
+#+LATEX_HEADER:   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+#+LATEX_HEADER: \setcounter{secnumdepth}{0}
+#+LATEX_HEADER: % Redefines (sub)paragraphs to behave more like sections
+#+LATEX_HEADER: \ifx\paragraph\undefined\else
+#+LATEX_HEADER: \let\oldparagraph\paragraph
+#+LATEX_HEADER: \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+#+LATEX_HEADER: \fi
+#+LATEX_HEADER: \ifx\subparagraph\undefined\else
+#+LATEX_HEADER: \let\oldsubparagraph\subparagraph
+#+LATEX_HEADER: \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+#+LATEX_HEADER: \fi
+
+#+LATEX_HEADER: % Make use of float-package and set default placement for figures to H
+#+LATEX_HEADER: \usepackage{float}
+#+LATEX_HEADER: \floatplacement{figure}{H}
+
+#+LATEX_HEADER: \numberwithin{figure}{section}
+#+LATEX_HEADER: \numberwithin{equation}{section}
+#+LATEX_HEADER: \numberwithin{table}{section}
+#+LATEX_HEADER: \makeatletter
+#+LATEX_HEADER: \@ifpackageloaded{subfig}{}{\usepackage{subfig}}
+#+LATEX_HEADER: \@ifpackageloaded{caption}{}{\usepackage{caption}}
+#+LATEX_HEADER: \captionsetup[subfloat]{margin=0.5em}
+#+LATEX_HEADER: \AtBeginDocument{%
+#+LATEX_HEADER: \renewcommand*\figurename{Figure}
+#+LATEX_HEADER: \renewcommand*\tablename{Table}
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \AtBeginDocument{%
+#+LATEX_HEADER: \renewcommand*\listfigurename{List of Figures}
+#+LATEX_HEADER: \renewcommand*\listtablename{List of Tables}
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \@ifpackageloaded{float}{}{\usepackage{float}}
+#+LATEX_HEADER: \floatstyle{ruled}
+#+LATEX_HEADER: \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+#+LATEX_HEADER: \floatname{codelisting}{Listing}
+#+LATEX_HEADER: \makeatother
+
+#+LATEX_HEADER: \usepackage[dvipsnames,svgnames*,x11names*,table]{xcolor}
+#+LATEX_HEADER: \definecolor{listing-background}{HTML}{F7F7F7}
+#+LATEX_HEADER: \definecolor{listing-rule}{HTML}{B3B2B3}
+#+LATEX_HEADER: \definecolor{listing-numbers}{HTML}{B3B2B3}
+#+LATEX_HEADER: \definecolor{listing-text-color}{HTML}{000000}
+#+LATEX_HEADER: \definecolor{listing-keyword}{HTML}{435489}
+#+LATEX_HEADER: \definecolor{listing-identifier}{HTML}{435489}
+#+LATEX_HEADER: \definecolor{listing-string}{HTML}{00999A}
+#+LATEX_HEADER: \definecolor{listing-comment}{HTML}{8E8E8E}
+#+LATEX_HEADER: \definecolor{listing-javadoc-comment}{HTML}{006CA9}
+
+#+LATEX_HEADER: \usepackage{pagecolor}
+#+LATEX_HEADER: \usepackage{afterpage}
+#+LATEX_HEADER: \setcounter{tocdepth}{3}
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX_HEADER: \setstretch{1.2}
+#+LATEX_HEADER: \usepackage{csquotes}
+#+LATEX_HEADER: \usepackage[font={small,it}]{caption}
+#+LATEX_HEADER: \newcommand{\imglabel}[1]{\textbf{\textit{(#1)}}}
+#+LATEX_HEADER: \definecolor{blockquote-border}{RGB}{221,221,221}
+#+LATEX_HEADER: \definecolor{blockquote-text}{RGB}{119,119,119}
+#+LATEX_HEADER: \usepackage{mdframed}
+#+LATEX_HEADER: \newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,linecolor=blockquote-border,skipabove=\parskip]{customblockquote}
+#+LATEX_HEADER: \renewenvironment{quote}{\begin{customblockquote}\list{}{\rightmargin=0em\leftmargin=0em}%
+#+LATEX_HEADER: \item\relax\color{blockquote-text}\ignorespaces}{\unskip\unskip\endlist\end{customblockquote}}
+#+LATEX_HEADER: \definecolor{heading-color}{RGB}{40,40,40}
+#+LATEX_HEADER: \addtokomafont{section}{\color{heading-color}}
+#+LATEX_HEADER: \usepackage{titling}
+#+LATEX_HEADER: \renewcommand{\arraystretch}{1.3} % table spacing
+#+LATEX_HEADER: \definecolor{table-row-color}{HTML}{F5F5F5}
+#+LATEX_HEADER: \rowcolors{3}{}{table-row-color!100}
+
+#+LATEX_HEADER: % Reset rownum counter so that each table starts with the same row color
+#+LATEX_HEADER: \let\oldlongtable\longtable
+#+LATEX_HEADER: \let\endoldlongtable\endlongtable
+#+LATEX_HEADER: \renewenvironment{longtable}{\oldlongtable} {
+#+LATEX_HEADER: \endoldlongtable
+#+LATEX_HEADER: \global\rownum=0\relax}
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \setlength{\parskip}{6pt plus 2pt minus 1pt}
+#+LATEX_HEADER: \setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \fancyhead{}
+#+LATEX_HEADER: \fancyfoot{}
+#+LATEX_HEADER: \lhead{Kaggle Fish}
+#+LATEX_HEADER: \chead{}
+#+LATEX_HEADER: \rhead{\today}
+#+LATEX_HEADER: \lfoot{Rohit Goswami}
+#+LATEX_HEADER: \cfoot{}
+#+LATEX_HEADER: \rfoot{\thepage}
+#+LATEX_HEADER: \renewcommand{\headrulewidth}{0.4pt}
+#+LATEX_HEADER: \renewcommand{\footrulewidth}{0.4pt}
+
+
+#+LATEX_HEADER: % When using the classes report, scrreprt, book,
+#+LATEX_HEADER: % scrbook or memoir, uncomment the following line.
+#+LATEX_HEADER: %\addtokomafont{chapter}{\color{heading-color}}
+
+
+# Nicer Fonts
+# #+LATEX_HEADER: \usepackage{xunicode}
+# #+LATEX_HEADER: \usepackage{xltxtra}
+# #+LATEX_HEADER: \usepackage[protrusion=true,final]{microtype}
+# #+LATEX_HEADER: \usepackage{mathspec}
+# #+LATEX_HEADER: \defaultfontfeatures{Mapping=tex-text}
+# #+LATEX_HEADER: \setromanfont[Ligatures={Common}, Numbers={OldStyle}]{Hoefler Text}
+# #+LATEX_HEADER: \setsansfont[Scale=0.9]{Helvetica Neue}
+# #+LATEX_HEADER: \setmonofont[Scale=0.8]{Courier}
+# #+LATEX_HEADER: \newfontfamily\scfont[Scale=1.2]{Minion Pro}
+
+#+LATEX_HEADER: \usepackage[default]{sourcesanspro}
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+
+# Wider Text
+# #+LATEX_HEADER: \usepackage[textwidth=7in,textheight=9in]{geometry}
+#+LATEX_HEADER: \usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
+
+# My highlighter
+\usepackage{soul}
+\setul{0.5ex}{0.3ex}
+\setulcolor{BurntOrange}
+\newcommand{rg1}[1]{\colorbox{BurntOrange}}{\textcolor{white}{#1}}}
+\newcommand{\rg}[1]{\ul{#1}}
+
+\begin{titlepage}
+\newgeometry{left=6cm}
+\definecolor{titlepage-color}{HTML}{06386e}
+\newpagecolor{titlepage-color}\afterpage{\restorepagecolor}
+\newcommand{\colorRule}[3][black]{\textcolor[HTML]{#1}{\rule{#2}{#3}}}
+\begin{flushleft}
+\noindent
+\\[-1em]
+\color[HTML]{ffffff}
+\makebox[0pt][l]{\colorRule[ffffff]{1.3\textwidth}{1pt}}
+\par
+\noindent
+
+{ \setstretch{1.4}
+\vfill
+\noindent {\huge \textbf{\textsf{Kaggle Fish}}}
+\vskip 1em
+{\Large \textsf{Univ.ai Project}}
+\vskip 2em
+\noindent
+{\Large \textsf{\MakeUppercase{Rohit Goswami}}
+\vfill
+}
+
+\textsf{\today}}
+\end{flushleft}
+\end{titlepage}
+\restoregeometry
+
+\tableofcontents
+\newpage
+
+# Start Here
+
+* Problem Statement
+Given unknown images and seven classes of fish, we need to isolate said fish and
+classify them.
+* Data
+** Training
+- The training set has ~json~ bounding boxes and tags
+- It is also tagged by folder
+** Test
+We will eventually have to handle the following use-cases before using the test
+set.
+- [ ] Skewed
+- [ ] No fish
+- [ ] Wrong size
+- [ ] Edges
+- [ ] Backgrounds
+* Methodology
+** Class Approach
+- Use transfer learning
+- Pop the top and put two dense layers, one for classification and one for the
+  box, that is 8 outputs and 4 outputs
+** Our Approach
+*** TODO Fish/Not Fish
+Here we want to first *augment* the existing data to allow us to make a binary
+fish or no fish model.
+**** Augmentation
+- With existing data :: Here we will be using random splits and information from
+     the ~json~ bounds to work out our fish/no-fish data and hence train a
+     simple logistic regressor.
+- With external data :: Here we will ignore the fact that we have no bounding
+     box information and instead pass in a *split-sized* image of a fish or no
+     fish.
+*** TODO Bounding Box
+Once we have the regions then we will use the bounding boxes to further clean
+the images
+*** TODO Classifier
+Finally we are in a position to run a simple classifier on the not fish classes,
+that is a seven class classifier
+* Data Exploration
+** Structure
+After obtaining the data and extracting said data, we note the following folder
+structure.
+#+BEGIN_SRC bash :exports both :results raw
+cd /Storage/DataSets/KaggleFish/train/train
+ls
+#+END_SRC
+
+#+BEGIN_QUOTE
+ALB
+BET
+DOL
+LAG
+NoF
+OTHER
+SHARK
+YFT
+#+END_QUOTE
+
+Additionally, the bounding box data is in the form:
+#+BEGIN_SRC bash :exports both :results raw
+cd /Storage/DataSets/KaggleFish/bbox
+head alb_labels.json
+#+END_SRC
+
+#+BEGIN_SRC json
+[
+    {
+        "annotations": [
+            {
+                "class": "rect",
+                "height": 151.06975503141317,
+                "width": 383.68430384213445,
+                "x": 547.1578480789353,
+                "y": 193.3597426816281
+            }
+        ],
+        "class": "image",
+        "filename": "img_07917.jpg"
+    },
+]
+#+END_SRC
+
+- We note that the ~class~ tag is not useful for us
+** Quality
+- Since we also have bounding box data for the no-fish cases, we decided to
+  manually inspect some of the labels and the corresponding regions
+*** Fish
+We tested the ALB tuna data-base and noted, that the head was chopped off by the
+bounding box
+
+#+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/albLabelpoor07917.jpg @ 2019-06-22 12:57:43
+[[file:img/Quality/albLabelpoor07917_2019-06-22_12-57-43.jpg]]
+
+This is more evident from the original image:
+
+#+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/albLabel07917orig.jpg @ 2019-06-22 12:57:57
+[[file:img/Quality/albLabel07917orig_2019-06-22_12-57-57.jpg]]
+
+*** No Fish
+Naturally the original image has no fish:
+
+#+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/nofish_00008-labelOrig.jpg @ 2019-06-22 12:58:24
+[[file:img/Quality/nofish_00008-labelOrig_2019-06-22_12-58-24.jpg]]
+
+Equally unsurprisingly, the no-fish bounding box is, *not fish*:
+
+#+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/nofish_00008-label.jpg @ 2019-06-22 12:58:47
+[[file:img/Quality/nofish_00008-label_2019-06-22_12-58-47.jpg]]
+
+\rg{This is great news! We can totally ignore the no-fish bounding box!}
+** Preprocessing
+
+- Visual inspection of the images showed that a lot of them (but not all) had a
+  water-mark.
+ 
+
+#+DOWNLOADED: file:///Storage/DataSets/KaggleFish/train/train/ALB/img_00299.jpg @ 2019-06-22 12:06:01
+[[file:img/Data_Preprocessing/img_00299_2019-06-22_12-06-01.jpg]]
+
+
+
+# Local Variables:
+# after-save-hook: haozeke/org-save-and-export-pdf
+# End:
