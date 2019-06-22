@@ -265,7 +265,7 @@ that is a seven class classifier
 After obtaining the data and extracting said data, we note the following folder
 structure.
 #+BEGIN_SRC bash :exports both :results raw
-cd /Storage/DataSets/KaggleFish/train/train
+cd /Storage/DataSets/KaggleFish/train
 ls
 #+END_SRC
 
@@ -332,11 +332,14 @@ Equally unsurprisingly, the no-fish bounding box is, *not fish*:
 [[file:img/Quality/nofish_00008-label_2019-06-22_12-58-47.jpg]]
 
 This is great news! We can totally ignore the no-fish bounding box!
-** Preprocessing
+*** Watermarks
 Visual inspection of the images showed that a lot of them (but not all) had a
 water-mark. It makes sense to remove the water-mark since it is common to all
 the images (or atleast it is class independent) so it will confuse our model.
-
+As is evident in the images shown before, there's a watermark in the upper left.
+We thought of in-painting with openCV, but eventually decided to go for a simple
+cropping operation as part of our pipe-line.
+** Preprocessing
 *** OpenCV and Joe
 We will experiment on a no-fish image, the same one displayed above, henceforth
 known as joe. We will be reproducing the image sampling code below from the file.
@@ -351,3 +354,15 @@ known as joe. We will be reproducing the image sampling code below from the file
 # Local Variables:
 # after-save-hook: haozeke/org-save-and-export-pdf
 # End:
+*** Joe and Resizing
+It turns out that the input data is *not* all the same size. So before we use
+our neat python cropping stuff, we would like to pad our images out. To do this,
+that is to ascertain the image size and then get the maximum height, we use
+~bash~.
+#+BEGIN_SRC bash
+target=BET
+cd /Storage/DataSets/KaggleFish/train/$target
+find . -name '*.jpg' -exec identify {} >> $target.txt \;
+#+END_SRC
+
+However, a more pythonic option is simply:
