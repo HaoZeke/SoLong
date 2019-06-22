@@ -1,4 +1,4 @@
-% Created 2019-06-22 Sat 13:05
+% Created 2019-06-22 Sat 13:13
 % Intended LaTeX compiler: xelatex
 \documentclass[12pt,a4paper,oneside,headinclude]{scrartcl}
 \usepackage{graphicx}
@@ -154,6 +154,10 @@ breaklinks=true}
 \usepackage[default]{sourcesanspro}
 \usepackage{sourcecodepro}
 \usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
+\usepackage{soul}
+\setul{0.5ex}{0.3ex}
+\setulcolor{BurntOrange}
+\newcommand{\rg}[1]{\ul{#1}}
 \author{Rohit Goswami,\textsc{\scriptsize\ AMIChemE}}
 \date{\today}
 \title{Kaggle Fish\\\medskip
@@ -166,12 +170,6 @@ breaklinks=true}
  pdfcreator={Emacs 26.2 (Org mode 9.1.9)}, 
  pdflang={English}}
 \begin{document}
-
-\usepackage{soul}
-\setul{0.5ex}{0.3ex}
-\setulcolor{BurntOrange}
-\newcommand{rg1}[1]\{\colorbox{BurntOrange}\}\{\textcolor{white}{#1}\}\}
-\newcommand{\rg}[1]\{\ul{#1}\}
 
 \begin{titlepage}
 \newgeometry{left=6cm}
@@ -206,19 +204,19 @@ breaklinks=true}
 \newpage
 
 \section{Problem Statement}
-\label{sec:orga848f9a}
+\label{sec:org52951b3}
 Given unknown images and seven classes of fish, we need to isolate said fish and
 classify them.
 \section{Data}
-\label{sec:orga326b10}
+\label{sec:org9352a6e}
 \subsection{Training}
-\label{sec:orga06b239}
+\label{sec:org8613465}
 \begin{itemize}
 \item The training set has \texttt{json} bounding boxes and tags
 \item It is also tagged by folder
 \end{itemize}
 \subsection{Test}
-\label{sec:orgeee59c5}
+\label{sec:org5269857}
 We will eventually have to handle the following use-cases before using the test
 set.
 \begin{itemize}
@@ -229,23 +227,23 @@ set.
 \item[{$\square$}] Backgrounds
 \end{itemize}
 \section{Methodology}
-\label{sec:org2e807a7}
+\label{sec:orgbca0569}
 \subsection{Class Approach}
-\label{sec:org30620ca}
+\label{sec:org5b221e9}
 \begin{itemize}
 \item Use transfer learning
 \item Pop the top and put two dense layers, one for classification and one for the
 box, that is 8 outputs and 4 outputs
 \end{itemize}
 \subsection{Our Approach}
-\label{sec:org214b2d8}
+\label{sec:org000eadb}
 \subsubsection{{\bfseries\sffamily TODO} Fish/Not Fish}
-\label{sec:org30cbfd7}
+\label{sec:org79a0ca3}
 Here we want to first \textbf{augment} the existing data to allow us to make a binary
 fish or no fish model.
 \begin{enumerate}
 \item Augmentation
-\label{sec:org1f48f0c}
+\label{sec:org4f66c16}
 \begin{description}
 \item[{With existing data}] Here we will be using random splits and information from
 the \texttt{json} bounds to work out our fish/no-fish data and hence train a
@@ -256,17 +254,17 @@ fish.
 \end{description}
 \end{enumerate}
 \subsubsection{{\bfseries\sffamily TODO} Bounding Box}
-\label{sec:org0f3132a}
+\label{sec:org270bccf}
 Once we have the regions then we will use the bounding boxes to further clean
 the images
 \subsubsection{{\bfseries\sffamily TODO} Classifier}
-\label{sec:orgd8e04d0}
+\label{sec:org2943071}
 Finally we are in a position to run a simple classifier on the not fish classes,
 that is a seven class classifier
 \section{Data Exploration}
-\label{sec:org25ba634}
+\label{sec:org46aef17}
 \subsection{Structure}
-\label{sec:org45660fe}
+\label{sec:org0b00c97}
 After obtaining the data and extracting said data, we note the following folder
 structure.
 \begin{minted}[]{bash}
@@ -313,13 +311,13 @@ head alb_labels.json
 \item We note that the \texttt{class} tag is not useful for us
 \end{itemize}
 \subsection{Quality}
-\label{sec:orgbd2d53a}
+\label{sec:orgfec4099}
 \begin{itemize}
 \item Since we also have bounding box data for the no-fish cases, we decided to
 manually inspect some of the labels and the corresponding regions
 \end{itemize}
 \subsubsection{Fish}
-\label{sec:org0f920de}
+\label{sec:org5a3a3f2}
 We tested the ALB tuna data-base and noted, that the head was chopped off by the
 bounding box
 
@@ -334,7 +332,7 @@ This is more evident from the original image:
 \end{center}
 
 \subsubsection{No Fish}
-\label{sec:org59ecdd1}
+\label{sec:org83a0656}
 Naturally the original image has no fish:
 
 \begin{center}
@@ -349,12 +347,15 @@ Equally unsurprisingly, the no-fish bounding box is, \textbf{not fish}:
 
 This is great news! We can totally ignore the no-fish bounding box!
 \subsection{Preprocessing}
-\label{sec:org153b429}
+\label{sec:org435e193}
+Visual inspection of the images showed that a lot of them (but not all) had a
+water-mark. It makes sense to remove the water-mark since it is common to all
+the images (or atleast it is class independent) so it will confuse our model.
 
-\begin{itemize}
-\item Visual inspection of the images showed that a lot of them (but not all) had a
-water-mark.
-\end{itemize}
+\subsubsection{OpenCV and Joe}
+\label{sec:org0b8ad03}
+We will experiment on a no-fish image, the same one displayed above, henceforth
+known as joe.
 
 
 \begin{center}

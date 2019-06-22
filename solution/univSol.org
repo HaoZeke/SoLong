@@ -184,11 +184,10 @@
 #+LATEX_HEADER: \usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
 
 # My highlighter
-\usepackage{soul}
-\setul{0.5ex}{0.3ex}
-\setulcolor{BurntOrange}
-\newcommand{rg1}[1]{\colorbox{BurntOrange}}{\textcolor{white}{#1}}}
-\newcommand{\rg}[1]{\ul{#1}}
+#+LATEX_HEADER: \usepackage{soul}
+#+LATEX_HEADER: \setul{0.5ex}{0.3ex}
+#+LATEX_HEADER: \setulcolor{BurntOrange}
+#+LATEX_HEADER: \newcommand{\rg}[1]{\ul{#1}}
 
 \begin{titlepage}
 \newgeometry{left=6cm}
@@ -332,12 +331,17 @@ Equally unsurprisingly, the no-fish bounding box is, *not fish*:
 #+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/nofish_00008-label.jpg @ 2019-06-22 12:58:47
 [[file:img/Quality/nofish_00008-label_2019-06-22_12-58-47.jpg]]
 
-\rg{This is great news! We can totally ignore the no-fish bounding box!}
+This is great news! We can totally ignore the no-fish bounding box!
 ** Preprocessing
+Visual inspection of the images showed that a lot of them (but not all) had a
+water-mark. It makes sense to remove the water-mark since it is common to all
+the images (or atleast it is class independent) so it will confuse our model.
 
-- Visual inspection of the images showed that a lot of them (but not all) had a
-  water-mark.
- 
+*** OpenCV and Joe
+We will experiment on a no-fish image, the same one displayed above, henceforth
+known as joe. We will be reproducing the image sampling code below from the file.
+
+
 
 #+DOWNLOADED: file:///Storage/DataSets/KaggleFish/train/train/ALB/img_00299.jpg @ 2019-06-22 12:06:01
 [[file:img/Data_Preprocessing/img_00299_2019-06-22_12-06-01.jpg]]
