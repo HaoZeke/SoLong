@@ -313,23 +313,29 @@ We tested the ALB tuna data-base and noted, that the head was chopped off by the
 bounding box
 
 #+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/albLabelpoor07917.jpg @ 2019-06-22 12:57:43
-[[file:img/Quality/albLabelpoor07917_2019-06-22_12-57-43.jpg]]
+#+attr_latex: :width 0.3\textwidth
+# [[file:img/Quality/albLabelpoor07917_2019-06-22_12-57-43.jpg]]
 
 This is more evident from the original image:
 
 #+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/albLabel07917orig.jpg @ 2019-06-22 12:57:57
-[[file:img/Quality/albLabel07917orig_2019-06-22_12-57-57.jpg]]
+#+attr_latex: :width 0.3\textwidth
+# [[file:img/Quality/albLabel07917orig_2019-06-22_12-57-57.jpg]]
 
 *** No Fish
 Naturally the original image has no fish:
 
 #+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/nofish_00008-labelOrig.jpg @ 2019-06-22 12:58:24
-[[file:img/Quality/nofish_00008-labelOrig_2019-06-22_12-58-24.jpg]]
+#+attr_html: :width 100px
+#+attr_latex: :width 0.3\textwidth
+# [[file:img/Quality/nofish_00008-labelOrig_2019-06-22_12-58-24.jpg]]
 
 Equally unsurprisingly, the no-fish bounding box is, *not fish*:
 
 #+DOWNLOADED: file:///home/haozeke/Git/Github/Python/univAI-data/22-SoLong/solution/img/nofish_00008-label.jpg @ 2019-06-22 12:58:47
-[[file:img/Quality/nofish_00008-label_2019-06-22_12-58-47.jpg]]
+#+attr_html: :width 100px
+#+attr_latex: :width 0.3\textwidth
+# [[file:img/Quality/nofish_00008-label_2019-06-22_12-58-47.jpg]]
 
 This is great news! We can totally ignore the no-fish bounding box!
 *** Watermarks
@@ -341,17 +347,31 @@ We thought of in-painting with openCV, but eventually decided to go for a simple
 cropping operation as part of our pipe-line.
 ** Visuals
 We note the following distribution of classes:
-[[file:img/Visuals/joeBar.png]]
+[[
+#+attr_html: :width 100px
+#+attr_latex: :width 100px
+file:img/Visuals/joeBar.png]]
+
 This is generated neatly from the following script:
+
 #+INCLUDE: "./scripts/trainDistribution.py" src python
+
 ** Preprocessing
 *** OpenCV and Joe
 We will experiment on a no-fish image, the same one displayed above, henceforth
 known as joe. We will be reproducing the image sampling code below from the file.
 
 #+DOWNLOADED: file:///Storage/DataSets/KaggleFish/train/train/ALB/img_00299.jpg @ 2019-06-22 12:06:01
-[[file:img/Data_Preprocessing/img_00299_2019-06-22_12-06-01.jpg]]
+#+attr_html: :width 100px
+#+attr_latex: :width 100px
+# [[file:img/Data_Preprocessing/img_00299_2019-06-22_12-06-01.jpg]]
 
+*** Joe and Cropping
+- It [[https://stackoverflow.com/a/54244503/1895378][turns out that]] it is really rather trivial to use ~python~ and Pillow to
+perform a cropping operation.
+- We did have to fiddle around with the values manually however.
+
+#+INCLUDE: "./scripts/killWatermark.py" src python
 *** Joe and Resizing
 It turns out that the input data is *not* all the same size. So before we use
 our neat python cropping stuff, we would like to pad our images out. To do this,
@@ -362,6 +382,10 @@ target=BET
 cd /Storage/DataSets/KaggleFish/train/$target
 find . -name '*.jpg' -exec identify {} >> $target.txt \;
 #+END_SRC
+
+Before working our way to a more pythonic option, it is relevant to test the
+number of files without the watermark, to see if there is any correlation to the
+size of the image and the presence of the watermark.
 
 However, a more pythonic option is simply:
 
