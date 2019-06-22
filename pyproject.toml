@@ -27,6 +27,7 @@ pydot = "^1.4"
 wandb = "^0.8.1"
 opencv-contrib-python-headless = "^4.1"
 opencv-contrib-python = "^4.1"
+scikit-image = "^0.15.0"
 
 [tool.poetry.dev-dependencies]
 
