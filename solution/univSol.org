@@ -339,21 +339,19 @@ the images (or atleast it is class independent) so it will confuse our model.
 As is evident in the images shown before, there's a watermark in the upper left.
 We thought of in-painting with openCV, but eventually decided to go for a simple
 cropping operation as part of our pipe-line.
+** Visuals
+We note the following distribution of classes:
+[[file:img/Visuals/joeBar.png]]
+This is generated neatly from the following script:
+#+INCLUDE: "./scripts/trainDistribution.py" src python
 ** Preprocessing
 *** OpenCV and Joe
 We will experiment on a no-fish image, the same one displayed above, henceforth
 known as joe. We will be reproducing the image sampling code below from the file.
 
-
-
 #+DOWNLOADED: file:///Storage/DataSets/KaggleFish/train/train/ALB/img_00299.jpg @ 2019-06-22 12:06:01
 [[file:img/Data_Preprocessing/img_00299_2019-06-22_12-06-01.jpg]]
 
-
-
-# Local Variables:
-# after-save-hook: haozeke/org-save-and-export-pdf
-# End:
 *** Joe and Resizing
 It turns out that the input data is *not* all the same size. So before we use
 our neat python cropping stuff, we would like to pad our images out. To do this,
@@ -366,3 +364,7 @@ find . -name '*.jpg' -exec identify {} >> $target.txt \;
 #+END_SRC
 
 However, a more pythonic option is simply:
+
+# Local Variables:
+# after-save-hook: haozeke/org-save-and-export-pdf
+# End:
