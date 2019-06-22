@@ -25,6 +25,8 @@ pyreadline = "^2.1"
 tsne = "^0.1.8"
 pydot = "^1.4"
 wandb = "^0.8.1"
+opencv-contrib-python-headless = "^4.1"
+opencv-contrib-python = "^4.1"
 
 [tool.poetry.dev-dependencies]
 
