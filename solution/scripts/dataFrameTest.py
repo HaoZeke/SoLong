@@ -2,6 +2,21 @@
 from PIL import Image
 from pathlib import Path
 import pandas as pd
+from matplotlib import rc as graphConf
+
+# Some magic matplotlib
+font = {"family": "Fira Code", "weight": "bold", "size": 14}
+
+graphConf("font", **font)
+
+# A helper function to view images
+def showFish(fish, imgid):
+    "Display some training set fish! This needs the fish type and the image id"
+    myTestData = Path(r"/Storage/DataSets/KaggleFish/train")
+    tmpPath = "img_" + imgid + ".jpg"
+    Image.open(myTestData / fish / tmpPath).show()
+    return
+
 
 # Create a dict
 myTestData = Path(r"/Storage/DataSets/KaggleFish/train")
@@ -15,14 +30,20 @@ for classFish in myTestData.iterdir():
                 w, h = im.size
                 pseudoFrame = {
                     "Name": str(fish.name),
-                    "Width": w,
-                    "Height": h,
                     "Fish": str(fish.parent.relative_to(myTestData)),
-                    "Dimensions": im.size,
+                    "DimsWH": im.size,
+                    # "Width": w,
+                    # "Height": h,
                 }
                 psList.append(pseudoFrame)
 # Casually make a dataframe
 df = pd.DataFrame(psList)
+
+# ax = df["DimsWH"].value_counts().plot(kind="bar")
+# fig = ax.get_figure()
+# fig.tight_layout()
+# fig.set_size_inches(18.5, 6.5)
+# fig.savefig("joeDim.png")
 
 # basewidth = 300
 # wpercent = basewidth / float(im.size[0])
