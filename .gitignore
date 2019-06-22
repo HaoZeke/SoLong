@@ -395,3 +395,5 @@ dmypy.json
 *.*~
 # The junk comes with the qualified name
 univSol*
+*/scripts/*.png
+*/scripts/*.jpg
