@@ -23,12 +23,3 @@ width = 1
 plt.bar(indexes, values, width)
 plt.xticks(indexes, labels)
 plt.savefig("joeBar.png")
-
-# basewidth = 300
-# im = Image.open("joe.jpg")
-# wpercent = basewidth / float(im.size[0])
-# hsize = int((float(im.size[1]) * float(wpercent)))
-# im = im.resize((basewidth, hsize), Image.ANTIALIAS)
-# im.save("newJoe.jpg")
-# # im = im.crop((0, 50, 777, 686))
-# # im.show()
