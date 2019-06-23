@@ -39,6 +39,9 @@ for classFish in myTestData.iterdir():
 # Casually make a dataframe
 df = pd.DataFrame(psList)
 
+# Invaluable
+# df[df.DimsWH==(1280, 720)].Fish.value_counts
+
 # ax = df["DimsWH"].value_counts().plot(kind="bar")
 # fig = ax.get_figure()
 # fig.tight_layout()
