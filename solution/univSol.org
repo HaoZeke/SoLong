@@ -387,7 +387,39 @@ Before working our way to a more pythonic option, it is relevant to test the
 number of files without the watermark, to see if there is any correlation to the
 size of the image and the presence of the watermark.
 
-However, a more pythonic option is simply:
+However, a more pythonic option is simply to handle things in a dataframe:
+
+#+INCLUDE: "./scripts/dataFrameTest.py" src python
+We note from our endeavors, the following different image sizes and shall go
+through a small sample of the same to get an idea of their provenance and ergo
+the appropriate response in terms of preprocessing.
+[[file:scripts/joeDim.png][A bar chart of the image sizes]]
+- (1244,700) :: _27 images_. This is the least represented of the classes, visual inspection
+     using the custom snippet in our ~dataFrameTest.py~ suggests that these were
+     all taken one fine sunny day on the ocean. These *do not have a watermark*.
+- (1334,750) :: _31 images_. Incredibly these are all images of the boats alone,
+     that is they are *all no-fish* images. *No watermark*
+- (1732,974) :: _35 images_. Also *no fish*
+The rest of the data is summarized in tabular form.
+
+| Resolution   | Number | Watermark | Type                                                                                     | Description               |
+|--------------+--------+-----------+------------------------------------------------------------------------------------------+---------------------------|
+| (1244, 700)  |     27 | No        | ALB (2), BET (5), NoF (13), YFT (7)                                                      | A sunny day, no gore      |
+| (1334, 750 ) |     31 | No        | No Fish                                                                                  | Boats alone, sunny        |
+| (1732, 974)  |     35 | No        | No Fish                                                                                  | A single boat, sunny      |
+| (1518, 854)  |     39 | No        | ALB (6), BET (17), NoF (14), YFT (2)                                                     | Sunny, bloody             |
+| (1280, 924)  |     60 | No        | ALB (34), YFT(26)                                                                        | Single scene, sunny       |
+| (1192, 670)  |    198 | No        | ALB (164), NoF (23), BET (9), YFT (2)                                                    | Sunny                     |
+| (1276, 718)  |    220 | No        | ALB (109), NoF (95), YTF (15), BET (1)                                                   | Well lit                  |
+| (1280, 974)  |    395 | No        | YFT (189), BET (71), SHARK (46), ALB (41), DOL (30), OTHER (9)                           | Lighted                   |
+| (1280, 750)  |    598 | No        | ALB (303), YFT (163), NoF (64), SHARK (27), DOL (24), OTHER (10), BET (7)                | Lighted                   |
+| (1280, 720)  |   2174 | Yes       | ALB (1060), YFT (330), OTHER (280), NoF (190), SHARK (103), BET (90), LAG (67), DOL (54) | Stormy and sunny. Satlink |
+
+From the exhaustive manual review of the data tabulated, it is evident that only
+the *(1280, 720)* pictures are from Satlink and therefore have the watermark.
+Gratifyingly, they also make up for most of our images, so it is reasonable to
+assume that whenever an aspect ratio like that comes along, it is a satlink
+image and therefore needs to be cropped.
 
 # Local Variables:
 # after-save-hook: haozeke/org-save-and-export-pdf
