@@ -419,7 +419,12 @@ From the exhaustive manual review of the data tabulated, it is evident that only
 the *(1280, 720)* pictures are from Satlink and therefore have the watermark.
 Gratifyingly, they also make up for most of our images, so it is reasonable to
 assume that whenever an aspect ratio like that comes along, it is a satlink
-image and therefore needs to be cropped.
+image and therefore needs to be cropped. With not much ceremony, thanks to the
+experiments on joe, we can just crop them all in one fell swoop. We have already
+obtained the optimal parameters for the crop, and after said operation we have
+images which are now without the watermark and are of dimensions *(1217, 700)*.
+
+#+INCLUDE: "./scripts/cropImages.py" src python
 
 # Local Variables:
 # after-save-hook: haozeke/org-save-and-export-pdf
